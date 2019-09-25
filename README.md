@@ -1,6 +1,6 @@
 # fit_calculators
 
-A new Flutter application.
+Simple flutter app that allows you to get info about your achievments. Implementation of part of DigiFit that was written in Java in Dart language
 
 ## Getting Started
 
