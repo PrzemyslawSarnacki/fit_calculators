@@ -70,10 +70,48 @@ class HomeState extends State<Home>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+                DrawerHeader(
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {Navigator.pop(context); }
+                        ,
+                      ),
+                      Text("Navigate"),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurpleAccent
+                  ),
+                ),
+            ListTile(
+              title: Text("Head"),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),ListTile(
+              title: Text("Head1"),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),ListTile(
+              title: Text("Head2"),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       //AppBar
       appBar: new AppBar(
         title: new Text("BfCalc"),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.deepPurple,
         centerTitle: true,
       ),
 
@@ -142,7 +180,7 @@ class HomeState extends State<Home>{
                           margin: EdgeInsets.only(left: 100.0),
                           child: new RaisedButton(
                             onPressed: _bfValue,
-                            color: Colors.blueGrey,
+                            color: Colors.deepPurple,
                             child: new Text(
                               "Calculate",
                               style: new TextStyle(
@@ -155,7 +193,7 @@ class HomeState extends State<Home>{
                           margin: EdgeInsets.only(left: 10.0),
                           child: new RaisedButton(
                             onPressed: _clear,
-                            color: Colors.blueGrey,
+                            color: Colors.deepPurple,
                             child: new Text(
                               "Clear",
                               style: new TextStyle(
