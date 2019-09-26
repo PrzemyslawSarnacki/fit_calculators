@@ -1,21 +1,19 @@
-import 'package:fit_calculators/bmicalc.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'bfcalc.dart';
 
-class Home extends StatefulWidget {
+class Bmi extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new HomeState();
+    return new BmiState();
   }
 }
 
 
-class HomeState extends State<Home>{
+class BmiState extends State<Bmi>{
   final TextEditingController _genderController = new TextEditingController();
   final TextEditingController _weightController = new TextEditingController();
   final TextEditingController _heightController = new TextEditingController();
-  final TextEditingController _waistController = new TextEditingController();
-  final TextEditingController _neckController = new TextEditingController();
   double _result = 0.0;
   String _finalResultPrint = "";
   String _doneResult = "";
@@ -25,8 +23,6 @@ class HomeState extends State<Home>{
       _genderController.clear();
       _weightController.clear();
       _heightController.clear();
-      _waistController.clear();
-      _neckController.clear();
     });
   }
 
@@ -35,37 +31,33 @@ class HomeState extends State<Home>{
       double gender = double.parse(_genderController.text);
       double weight = double.parse(_weightController.text);
       double height = double.parse(_heightController.text);
-      double waist = double.parse(_waistController.text);
-      double neck = double.parse(_neckController.text);
 
-      if((_genderController.text.isNotEmpty || gender > 0 || gender <= 2) && ((_heightController.text.isNotEmpty || height > 0) && (_weightController.text.isNotEmpty || weight > 0) && (_waistController.text.isNotEmpty || waist > 0) && (_neckController.text.isNotEmpty || neck > 0))){
-        _result = ((495) / (1.0324 - (0.19077 * (log(waist - neck)/2.303)) + (0.15456 * log(height)/2.303))) - 450;
+      if((_genderController.text.isNotEmpty || gender > 0 || gender <= 2) && ((_heightController.text.isNotEmpty || height > 0) && (_weightController.text.isNotEmpty || weight > 0))){
+        _result = weight/(height*height/100/100);
+        print(_result);
       }else{
         print("Error");
       }
 
-      if((double.parse(_result.toStringAsFixed(1)) < 8.5)){
-        _finalResultPrint = "Aleś dociął byku";
+      if((double.parse(_result.toStringAsFixed(1)) < 18.5)){
+        _finalResultPrint = "UnderWeight";
         print(_finalResultPrint);
-      }else if(double.parse(_result.toStringAsFixed(1))>8.5 &&
-          (double.parse(_result.toStringAsFixed(1)) <=10.0)){
-        _finalResultPrint = "No spoko jest";
+      }else if(double.parse(_result.toStringAsFixed(1))>18.5 &&
+          (double.parse(_result.toStringAsFixed(1)) <=25.0)){
+        _finalResultPrint = "Normal";
         print(_finalResultPrint);
-      }else if((double.parse(_result.toStringAsFixed(1))>10)
-          && (double.parse(_result.toStringAsFixed(1))) < 15.0){
-        _finalResultPrint = "Nie jest źle";
+      }else if((double.parse(_result.toStringAsFixed(1))>25.0)
+          && (double.parse(_result.toStringAsFixed(1))) < 30.0){
+        _finalResultPrint = "OverWeight";
         print(_finalResultPrint);
-      }else if((double.parse(_result.toStringAsFixed(1))) > 15.0
-          && (double.parse(_result.toStringAsFixed(1))) < 18.0) {
-        _finalResultPrint = "Jeszcze nie ulany";
+      }else if((double.parse(_result.toStringAsFixed(1))) >= 30.0){
+        _finalResultPrint = "Obesity";
         print(_finalResultPrint);
-      }else if((double.parse(_result.toStringAsFixed(1))) >= 18.0){
-        _finalResultPrint = "Po prostu schudnij kurwa ulańcu jebany";
-        print(_finalResultPrint);
-    }
+      }
+
     });
 
-    _doneResult = "Your BodyFat is ${_result.toStringAsFixed(1)} %";
+    _doneResult = "Your BMI is ${_result.toStringAsFixed(1)} ";
   }
 
   @override
@@ -94,15 +86,14 @@ class HomeState extends State<Home>{
               title: Text("BFCalc"),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Home()
+                    builder: (context) => Home()
                 ));
               },
             ),ListTile(
               title: Text("BMICalc"),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Bmi()
-
+                    builder: (context) => Bmi()
                 ));
               },
             ),ListTile(
@@ -115,7 +106,7 @@ class HomeState extends State<Home>{
         ),
       ),
       appBar: new AppBar(
-        title: new Text("BfCalc"),
+        title: new Text("BMI Calc"),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
       ),
@@ -159,22 +150,6 @@ class HomeState extends State<Home>{
                       hintText: "Eg 0-100",
                       labelText: "Weight",
                       icon: Icon(Icons.line_weight),
-                    ),
-                  ), new TextField(
-                    controller: _waistController,
-                    keyboardType: TextInputType.number,
-                    decoration: new InputDecoration(
-                      hintText: "Eg 0-100",
-                      labelText: "Waist",
-                      icon: Icon(Icons.linear_scale),
-                    ),
-                  ), new TextField(
-                    controller: _neckController,
-                    keyboardType: TextInputType.number,
-                    decoration: new InputDecoration(
-                      hintText: "Eg 0-100",
-                      labelText: "Neck",
-                      icon: Icon(Icons.hearing),
                     ),
                   ),
                   new Padding(padding: EdgeInsets.all(10.0)),
