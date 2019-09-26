@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'bfcalc.dart';
-import 'ipfpointscalc.dart';
 
-class Bmi extends StatefulWidget {
+class IPF extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new BmiState();
+    return new IPFState();
   }
 }
 
 
-class BmiState extends State<Bmi>{
+class IPFState extends State<IPF>{
   final TextEditingController _genderController = new TextEditingController();
   final TextEditingController _weightController = new TextEditingController();
-  final TextEditingController _heightController = new TextEditingController();
+  final TextEditingController _totalController = new TextEditingController();
   double _result = 0.0;
   String _finalResultPrint = "";
   String _doneResult = "";
@@ -23,7 +22,7 @@ class BmiState extends State<Bmi>{
     setState(() {
       _genderController.clear();
       _weightController.clear();
-      _heightController.clear();
+      _totalController.clear();
     });
   }
 
@@ -31,10 +30,14 @@ class BmiState extends State<Bmi>{
     setState(() {
       double gender = double.parse(_genderController.text);
       double weight = double.parse(_weightController.text);
-      double height = double.parse(_heightController.text);
+      double total = double.parse(_totalController.text);
 
-      if((_genderController.text.isNotEmpty || gender > 0 || gender <= 2) && ((_heightController.text.isNotEmpty || height > 0) && (_weightController.text.isNotEmpty || weight > 0))){
-        _result = weight/(height*height/100/100);
+      if((_genderController.text.isNotEmpty || gender > 0 || gender <= 2) && ((_totalController.text.isNotEmpty || total > 0) && (_weightController.text.isNotEmpty || weight > 0))){
+        var c1 = 310.67;
+        var c2 = 857.7850;
+        var c3 = 53.216;
+        var c4 = 147.0835;
+        _result = 500+100*(total - (c1*log(weight)-c2)/(c3*log(weight)-c4));
         print(_result);
       }else{
         print("Error");
@@ -58,7 +61,7 @@ class BmiState extends State<Bmi>{
 
     });
 
-    _doneResult = "Your BMI is ${_result.toStringAsFixed(1)} ";
+    _doneResult = "Your IPF is ${_result.toStringAsFixed(1)} ";
   }
 
   @override
@@ -68,21 +71,21 @@ class BmiState extends State<Bmi>{
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-                DrawerHeader(
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {Navigator.pop(context); },
-                         color: Colors.white,
-                      ),
-                      Text("Navigate", style: TextStyle(color: Colors.white),),
-                    ],
+            DrawerHeader(
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {Navigator.pop(context); },
+                    color: Colors.white,
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurpleAccent
-                  ),
-                ),
+                  Text("Navigate", style: TextStyle(color: Colors.white),),
+                ],
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.deepPurpleAccent
+              ),
+            ),
             ListTile(
               title: Text("BFCalc"),
               onTap: (){
@@ -91,25 +94,23 @@ class BmiState extends State<Bmi>{
                 ));
               },
             ),ListTile(
-              title: Text("BMICalc"),
+              title: Text("IPFCalc"),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => Bmi()
+                    builder: (context) => IPF()
                 ));
               },
             ),ListTile(
-              title: Text("IPF Calc"),
+              title: Text("Head2"),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => IPF()
-                ));
+                Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
       appBar: new AppBar(
-        title: new Text("BMI Calc"),
+        title: new Text("IPF Calc"),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
       ),
@@ -137,11 +138,11 @@ class BmiState extends State<Bmi>{
                   ),
 
                   new TextField(
-                    controller: _heightController,
+                    controller: _totalController,
                     keyboardType: TextInputType.number,
                     decoration: new InputDecoration(
-                      hintText: "Eg 120-200",
-                      labelText: "Height",
+                      hintText: "Eg 120-1000",
+                      labelText: "Total",
                       icon: Icon(Icons.bubble_chart),
                     ),
                   ),
