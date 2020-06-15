@@ -122,6 +122,7 @@ class HomeState extends State<Home>{
 
       //Body
       body: new Container(
+        margin: EdgeInsets.all(20),
         child: new ListView(
           children: <Widget>[
             new Center(
@@ -180,12 +181,12 @@ class HomeState extends State<Home>{
                   new Padding(padding: EdgeInsets.all(10.0)),
 
                   new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       new Container(
-                          margin: EdgeInsets.only(left: 100.0),
                           child: new RaisedButton(
                             onPressed: _bfValue,
-                            color: Colors.deepPurple,
+                            color: Colors.deepPurple,  
                             child: new Text(
                               "Calculate",
                               style: new TextStyle(

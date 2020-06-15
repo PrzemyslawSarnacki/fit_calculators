@@ -116,6 +116,7 @@ class BmiState extends State<Bmi>{
 
       //Body
       body: new Container(
+        padding: EdgeInsets.all(10),
         child: new ListView(
           children: <Widget>[
             new Center(
@@ -158,9 +159,10 @@ class BmiState extends State<Bmi>{
                   new Padding(padding: EdgeInsets.all(10.0)),
 
                   new Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       new Container(
-                          margin: EdgeInsets.only(left: 100.0),
+                          margin: EdgeInsets.only(),
                           child: new RaisedButton(
                             onPressed: _bfValue,
                             color: Colors.deepPurple,
