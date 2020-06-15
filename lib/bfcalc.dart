@@ -115,7 +115,7 @@ class HomeState extends State<Home>{
         ),
       ),
       appBar: new AppBar(
-        title: new Text("BfCalc"),
+        title: new Text("Bodyfat Calculator"),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
       ),
