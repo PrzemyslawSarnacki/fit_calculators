@@ -97,7 +97,8 @@ class HomeState extends State<Home>{
                   builder: (context) => Home()
                 ));
               },
-            ),ListTile(
+            ),
+            ListTile(
               title: Text("BMICalc"),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(
@@ -105,7 +106,8 @@ class HomeState extends State<Home>{
 
                 ));
               },
-            ),ListTile(
+            ),
+            ListTile(
               title: Text("Head2"),
               onTap: (){
                 Navigator.pop(context);

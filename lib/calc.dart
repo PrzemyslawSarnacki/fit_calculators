@@ -1,14 +1,12 @@
 import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
 
-
 void main() => runApp(MaterialApp(
-  home: Calc(),
-));
+      home: Calc(),
+    ));
 
 class Calc extends StatefulWidget {
   @override
@@ -16,36 +14,64 @@ class Calc extends StatefulWidget {
 }
 
 class _HomeState extends State<Calc> {
-
   int endValue;
   TextEditingController amount = new TextEditingController();
   var amountTempFinal;
   int dropdownValue = 3;
+  double _result = 0.0;
+  String _finalResultPrint = "";
   double _slidervalue = 8.0;
+  double _weightController;
+  double _heightController;
   var temp1;
   bool _visibility = false;
+
+  void _bfValue() {
+    setState(() {
+      double weight = _weightController;
+      double height = _heightController;
+
+      if (((height > 0) && (weight > 0))) {
+        _result = weight / (height * height / 100 / 100);
+        print(_result);
+      } else {
+        print("Error");
+      }
+
+      if ((double.parse(_result.toStringAsFixed(1)) < 18.5)) {
+        _finalResultPrint = "UnderWeight";
+      } else if (double.parse(_result.toStringAsFixed(1)) > 18.5 &&
+          (double.parse(_result.toStringAsFixed(1)) <= 25.0)) {
+        _finalResultPrint = "Normal";
+      } else if ((double.parse(_result.toStringAsFixed(1)) > 25.0) &&
+          (double.parse(_result.toStringAsFixed(1))) < 30.0) {
+        _finalResultPrint = "OverWeight";
+      } else if ((double.parse(_result.toStringAsFixed(1))) >= 30.0) {
+        _finalResultPrint = "Obesity";
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-
       resizeToAvoidBottomPadding: false,
-      
       body: CustomPaint(
         painter: BluePainter(),
         child: Container(
           child: SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(25, 70, 25, 0),
-            
             child: Column(
               children: <Widget>[
                 Container(
                   transform: Matrix4.translationValues(-150, -10, 0.0),
                   child: IconButton(
                     iconSize: 40,
-                    icon: Icon(Icons.menu, color: Colors.white,),
-                    onPressed: () {  },
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {},
                   ),
                 ),
                 Text(
@@ -66,17 +92,19 @@ class _HomeState extends State<Calc> {
                 SizedBox(
                   height: 20,
                 ),
-                
                 Container(
                   child: RaisedButton(
                     padding: EdgeInsets.fromLTRB(22, 9, 22, 9),
                     color: Color.fromRGBO(65, 200, 235, 1),
                     onPressed: () {
                       var amountFinal = double.parse(amount.text);
-                      if((amountFinal != null)&& (_slidervalue !=null) &&(dropdownValue !=null)) {
+                      if ((amountFinal != null) &&
+                          (_slidervalue != null) &&
+                          (dropdownValue != null)) {
                         _slidervalue = (_slidervalue / 100) + 1;
                         setState(() {
-                          double temp1 = amountFinal * pow(_slidervalue, dropdownValue);
+                          double temp1 =
+                              amountFinal * pow(_slidervalue, dropdownValue);
                           endValue = temp1.toInt();
                         });
                       }
@@ -92,7 +120,6 @@ class _HomeState extends State<Calc> {
                     ),
                   ),
                 ),
-                
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
                   child: TextFormField(
@@ -108,7 +135,7 @@ class _HomeState extends State<Calc> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:40),
+                  padding: const EdgeInsets.only(top: 40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -123,7 +150,7 @@ class _HomeState extends State<Calc> {
                         child: DropdownButton<int>(
                           value: dropdownValue,
                           icon: Icon(Icons.keyboard_arrow_down,
-                          color: Color.fromRGBO(80, 89, 113, 1)),
+                              color: Color.fromRGBO(80, 89, 113, 1)),
                           iconSize: 24,
                           isExpanded: true,
                           elevation: 16,
@@ -132,7 +159,23 @@ class _HomeState extends State<Calc> {
                               dropdownValue = newValue;
                             });
                           },
-                          items: <int>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map<DropdownMenuItem<int>>((int value){
+                          items: <int>[
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9,
+                            10,
+                            11,
+                            12,
+                            13,
+                            14,
+                            15
+                          ].map<DropdownMenuItem<int>>((int value) {
                             return DropdownMenuItem<int>(
                               value: value,
                               child: Text(
@@ -141,31 +184,28 @@ class _HomeState extends State<Calc> {
                                   fontSize: 18,
                                   fontFamily: 'Titillium',
                                   fontWeight: FontWeight.w700,
-
                                 ),
                               ),
                             );
-                          })
-                            .toList(),
+                          }).toList(),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Interest Rate',
+                          Text(
+                            'Interest Rate',
                             style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Titillium'
-                              ),
-                            ),
+                                fontSize: 16, fontFamily: 'Titillium'),
+                          ),
                           Visibility(
                             visible: _visibility,
                             child: Container(
@@ -178,12 +218,13 @@ class _HomeState extends State<Calc> {
                                     children: <Widget>[
                                       Text(
                                         '${temp1 == null ? "" : "$temp1 %"}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: 'Titillium',
-                                      color: Color.fromRGBO(65, 200, 235, 1),
-                                      fontWeight: FontWeight.w700,
-                                       ),
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Titillium',
+                                          color:
+                                              Color.fromRGBO(65, 200, 235, 1),
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                         textAlign: TextAlign.right,
                                       ),
                                       Text(
@@ -193,7 +234,6 @@ class _HomeState extends State<Calc> {
                                           fontFamily: 'Titillium',
                                           fontWeight: FontWeight.w700,
                                         ),
-
                                       ),
                                     ],
                                   ),
@@ -206,12 +246,32 @@ class _HomeState extends State<Calc> {
                       Slider(
                         inactiveColor: Color.fromRGBO(231, 237, 245, 1),
                         activeColor: Color.fromRGBO(49, 152, 213, 1),
-                        min: 0.1,
-                        max: 20.0,
+                        min: 130,
+                        max: 250,
                         onChanged: (newInterest) {
                           setState(() {
                             _slidervalue = newInterest;
-                            temp1 = double.parse(newInterest.toStringAsFixed(2));
+                            temp1 =
+                                double.parse(newInterest.toStringAsFixed(2));
+                            _visibility = true;
+                          });
+                        },
+                        onChangeEnd: (newVibrate) {
+                          Vibration.vibrate(duration: 10, amplitude: 1);
+                        },
+                        value: _slidervalue,
+                        label: '5',
+                      ),
+                      Slider(
+                        inactiveColor: Color.fromRGBO(231, 237, 245, 1),
+                        activeColor: Color.fromRGBO(49, 152, 213, 1),
+                        min: 30,
+                        max: 200,
+                        onChanged: (newInterest) {
+                          setState(() {
+                            _slidervalue = newInterest;
+                            temp1 =
+                                double.parse(newInterest.toStringAsFixed(2));
                             _visibility = true;
                           });
                         },
@@ -230,8 +290,8 @@ class _HomeState extends State<Calc> {
                     Text(
                       '0%',
                       style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Titillium',
+                        fontSize: 15,
+                        fontFamily: 'Titillium',
                         color: Color.fromRGBO(77, 91, 127, 1),
                       ),
                     ),
@@ -254,12 +314,11 @@ class _HomeState extends State<Calc> {
   }
 }
 
-
 class BluePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // final height = size.height/2.5;
-    final height = 155.0*2;
+    final height = 155.0 * 2;
     final width = size.width;
     Paint paint = Paint();
 
@@ -270,10 +329,12 @@ class BluePainter extends CustomPainter {
 
     Path ovalPath = Path();
     ovalPath.moveTo(0, height);
-    ovalPath.quadraticBezierTo(width * 1.2, height * 3, width * 1, height * 0.75);
+    ovalPath.quadraticBezierTo(
+        width * 1.2, height * 3, width * 1, height * 0.75);
     paint.color = Colors.grey[100];
     canvas.drawPath(ovalPath, paint);
   }
+
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return oldDelegate != this;
