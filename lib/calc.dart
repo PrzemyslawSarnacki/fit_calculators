@@ -20,7 +20,7 @@ class _HomeState extends State<Calc> {
   int dropdownValue = 3;
   double _result = 0.0;
   String _finalResultPrint = "";
-  double _slidervalue = 8.0;
+  double _slidervalue = 131.0;
   double _weightController;
   double _heightController;
   var temp1;
@@ -75,7 +75,7 @@ class _HomeState extends State<Calc> {
                   ),
                 ),
                 Text(
-                  'Estimated Interest',
+                  'Calculated BMI Value',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Titillium',
@@ -121,80 +121,7 @@ class _HomeState extends State<Calc> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: TextFormField(
-                    controller: amount,
-                    onChanged: (newAmount) {
-                      setState(() {
-                        amountTempFinal = double.parse(newAmount);
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Total Amount',
-                    ),
-                  ),
-                ),
-                Padding(
                   padding: const EdgeInsets.only(top: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Amount of years',
-                        style: TextStyle(
-                          fontFamily: 'Titillium',
-                          fontSize: 16,
-                        ),
-                      ),
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton<int>(
-                          value: dropdownValue,
-                          icon: Icon(Icons.keyboard_arrow_down,
-                              color: Color.fromRGBO(80, 89, 113, 1)),
-                          iconSize: 24,
-                          isExpanded: true,
-                          elevation: 16,
-                          onChanged: (newValue) {
-                            setState(() {
-                              dropdownValue = newValue;
-                            });
-                          },
-                          items: <int>[
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10,
-                            11,
-                            12,
-                            13,
-                            14,
-                            15
-                          ].map<DropdownMenuItem<int>>((int value) {
-                            return DropdownMenuItem<int>(
-                              value: value,
-                              child: Text(
-                                '$value years',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Titillium',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -202,7 +129,7 @@ class _HomeState extends State<Calc> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Interest Rate',
+                            'Weight',
                             style: TextStyle(
                                 fontSize: 16, fontFamily: 'Titillium'),
                           ),
@@ -262,11 +189,85 @@ class _HomeState extends State<Calc> {
                         value: _slidervalue,
                         label: '5',
                       ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      '130 cm',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'Titillium',
+                        color: Color.fromRGBO(77, 91, 127, 1),
+                      ),
+                    ),
+                    Text(
+                      '250 cm',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'Titillium',
+                        color: Color.fromRGBO(77, 91, 127, 1),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Height',
+                            style: TextStyle(
+                                fontSize: 16, fontFamily: 'Titillium'),
+                          ),
+                          Visibility(
+                            visible: _visibility,
+                            child: Container(
+                              transform: Matrix4.translationValues(0, 10, 0),
+                              child: Card(
+                                color: Colors.grey[100],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(
+                                        '${temp1 == null ? "" : "$temp1 %"}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Titillium',
+                                          color:
+                                              Color.fromRGBO(65, 200, 235, 1),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        textAlign: TextAlign.right,
+                                      ),
+                                      Text(
+                                        '${amountTempFinal == null ? "" : "\$ $amountTempFinal"}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Titillium',
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       Slider(
                         inactiveColor: Color.fromRGBO(231, 237, 245, 1),
                         activeColor: Color.fromRGBO(49, 152, 213, 1),
-                        min: 30,
-                        max: 200,
+                        min: 130,
+                        max: 250,
                         onChanged: (newInterest) {
                           setState(() {
                             _slidervalue = newInterest;
@@ -288,7 +289,7 @@ class _HomeState extends State<Calc> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      '0%',
+                      '30 kg',
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Titillium',
@@ -296,7 +297,7 @@ class _HomeState extends State<Calc> {
                       ),
                     ),
                     Text(
-                      '20%',
+                      '200 kg',
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Titillium',
