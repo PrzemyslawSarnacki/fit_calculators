@@ -20,10 +20,12 @@ class _HomeState extends State<Calc> {
   int dropdownValue = 3;
   double _result = 0.0;
   String _finalResultPrint = "";
-  double _slidervalue = 131.0;
-  double _weightController;
-  double _heightController;
+  double _heightSliderValue = 131.0;
+  double _weightSliderValue = 80.0;
+  double _weightController = 80;
+  double _heightController = 175;
   var temp1;
+  var temp2;
   bool _visibility = false;
 
   void _bfValue() {
@@ -82,7 +84,7 @@ class _HomeState extends State<Calc> {
                   ),
                 ),
                 Text(
-                  '\$ ${endValue == null ? "---" : "$endValue"}',
+                  '\$ ${_result == null ? "---" : "$_result"}',
                   style: TextStyle(
                     fontSize: 80,
                     color: Colors.white,
@@ -97,17 +99,7 @@ class _HomeState extends State<Calc> {
                     padding: EdgeInsets.fromLTRB(22, 9, 22, 9),
                     color: Color.fromRGBO(65, 200, 235, 1),
                     onPressed: () {
-                      var amountFinal = double.parse(amount.text);
-                      if ((amountFinal != null) &&
-                          (_slidervalue != null) &&
-                          (dropdownValue != null)) {
-                        _slidervalue = (_slidervalue / 100) + 1;
-                        setState(() {
-                          double temp1 =
-                              amountFinal * pow(_slidervalue, dropdownValue);
-                          endValue = temp1.toInt();
-                        });
-                      }
+                      _bfValue();
                     },
                     child: Text(
                       'Calculate',
@@ -175,18 +167,18 @@ class _HomeState extends State<Calc> {
                         activeColor: Color.fromRGBO(49, 152, 213, 1),
                         min: 130,
                         max: 250,
-                        onChanged: (newInterest) {
+                        onChanged: (newValue) {
                           setState(() {
-                            _slidervalue = newInterest;
-                            temp1 =
-                                double.parse(newInterest.toStringAsFixed(2));
+                            _weightSliderValue = newValue;
+                            _weightController =
+                                double.parse(newValue.toStringAsFixed(2));
                             _visibility = true;
                           });
                         },
                         onChangeEnd: (newVibrate) {
                           Vibration.vibrate(duration: 10, amplitude: 1);
                         },
-                        value: _slidervalue,
+                        value: _weightSliderValue,
                         label: '5',
                       ),
                     ],
@@ -237,7 +229,7 @@ class _HomeState extends State<Calc> {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        '${temp1 == null ? "" : "$temp1 %"}',
+                                        '${temp2 == null ? "" : "$temp2 %"}',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'Titillium',
@@ -268,18 +260,18 @@ class _HomeState extends State<Calc> {
                         activeColor: Color.fromRGBO(49, 152, 213, 1),
                         min: 130,
                         max: 250,
-                        onChanged: (newInterest) {
+                        onChanged: (newValue) {
                           setState(() {
-                            _slidervalue = newInterest;
-                            temp1 =
-                                double.parse(newInterest.toStringAsFixed(2));
+                            _heightSliderValue = newValue;
+                            _heightController =
+                                double.parse(newValue.toStringAsFixed(2));
                             _visibility = true;
                           });
                         },
                         onChangeEnd: (newVibrate) {
                           Vibration.vibrate(duration: 10, amplitude: 1);
                         },
-                        value: _slidervalue,
+                        value: _heightSliderValue,
                         label: '5',
                       ),
                     ],
