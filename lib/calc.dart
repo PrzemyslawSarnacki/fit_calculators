@@ -17,6 +17,7 @@ class Calc extends StatefulWidget {
 }
 
 class _HomeState extends State<Calc> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   double _result = 0.0;
   String _finalResultPrint;
@@ -50,9 +51,9 @@ class _HomeState extends State<Calc> {
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -73,7 +74,18 @@ class _HomeState extends State<Calc> {
                   ),
                 ],
               ),
-              decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(0, 10, 238, 1),
+                shape: BoxShape.rectangle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              ),
             ),
             ListTile(
               title: Text("BFCalc"),
@@ -115,7 +127,9 @@ class _HomeState extends State<Calc> {
                       Icons.menu,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      _scaffoldKey.currentState.openDrawer();
+                    },
                   ),
                 ),
                 Text(
