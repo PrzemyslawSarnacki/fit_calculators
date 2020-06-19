@@ -1,6 +1,9 @@
 import 'dart:js';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'bmicalc.dart';
+import 'bfcalc.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
 
@@ -14,10 +17,7 @@ class Calc extends StatefulWidget {
 }
 
 class _HomeState extends State<Calc> {
-  int endValue;
-  TextEditingController amount = new TextEditingController();
-  var amountTempFinal;
-  int dropdownValue = 3;
+
   double _result = 0.0;
   String _finalResultPrint;
   double _weightController = 60;
@@ -32,7 +32,6 @@ class _HomeState extends State<Calc> {
       if (((height > 0) && (weight > 0))) {
         _result = weight / (height * height / 100 / 100);
         _result = double.parse(_result.toStringAsFixed(2));
-        print(_result);
       } else {
         print("Error");
       }
@@ -54,6 +53,52 @@ class _HomeState extends State<Calc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.white,
+                  ),
+                  Text(
+                    "Navigate",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+            ),
+            ListTile(
+              title: Text("BFCalc"),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              },
+            ),
+            ListTile(
+              title: Text("BMICalc"),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Bmi()));
+              },
+            ),
+            ListTile(
+              title: Text("IPF Calc"),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Calc()));
+              },
+            ),
+          ],
+        ),
+      ),
       resizeToAvoidBottomPadding: false,
       body: CustomPaint(
         painter: BluePainter(),
@@ -151,14 +196,6 @@ class _HomeState extends State<Calc> {
                                         ),
                                         textAlign: TextAlign.right,
                                       ),
-                                      Text(
-                                        '${amountTempFinal == null ? "" : "\$ $amountTempFinal"}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'Titillium',
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -243,14 +280,6 @@ class _HomeState extends State<Calc> {
                                         ),
                                         textAlign: TextAlign.right,
                                       ),
-                                      Text(
-                                        '${amountTempFinal == null ? "" : "\$ $amountTempFinal"}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'Titillium',
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -317,7 +346,7 @@ class BluePainter extends CustomPainter {
     final height = 164.0 * 2;
     final width = size.width;
     Paint paint = Paint();
-    
+
     Path mainBackground = Path();
     mainBackground.addRect(Rect.fromLTRB(0, 0, width, height));
     paint.color = Color.fromRGBO(0, 10, 238, 1);
