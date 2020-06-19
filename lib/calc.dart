@@ -19,13 +19,9 @@ class _HomeState extends State<Calc> {
   var amountTempFinal;
   int dropdownValue = 3;
   double _result = 0.0;
-  String _finalResultPrint = "";
-  double _heightSliderValue = 131.0;
-  double _weightSliderValue = 80.0;
-  double _weightController = 80;
+  String _finalResultPrint;
+  double _weightController = 60;
   double _heightController = 175;
-  var temp1;
-  var temp2;
   bool _visibility = false;
 
   void _bfValue() {
@@ -35,6 +31,7 @@ class _HomeState extends State<Calc> {
 
       if (((height > 0) && (weight > 0))) {
         _result = weight / (height * height / 100 / 100);
+        _result = double.parse(_result.toStringAsFixed(2));
         print(_result);
       } else {
         print("Error");
@@ -84,15 +81,23 @@ class _HomeState extends State<Calc> {
                   ),
                 ),
                 Text(
-                  '\$ ${_result == null ? "---" : "$_result"}',
+                  '${_result == null ? "---" : "$_result"}',
                   style: TextStyle(
                     fontSize: 80,
                     color: Colors.white,
                     fontFamily: 'Titillium',
                   ),
                 ),
+                Text(
+                  '${_finalResultPrint == null ? "---" : "$_finalResultPrint"}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontFamily: 'Titillium',
+                  ),
+                ),
                 SizedBox(
-                  height: 20,
+                  height: 18,
                 ),
                 Container(
                   child: RaisedButton(
@@ -136,7 +141,7 @@ class _HomeState extends State<Calc> {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        '${temp1 == null ? "" : "$temp1 %"}',
+                                        '${_weightController == null ? "" : "$_weightController kg"}',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'Titillium',
@@ -165,11 +170,10 @@ class _HomeState extends State<Calc> {
                       Slider(
                         inactiveColor: Color.fromRGBO(231, 237, 245, 1),
                         activeColor: Color.fromRGBO(49, 152, 213, 1),
-                        min: 130,
-                        max: 250,
+                        min: 30,
+                        max: 230,
                         onChanged: (newValue) {
                           setState(() {
-                            _weightSliderValue = newValue;
                             _weightController =
                                 double.parse(newValue.toStringAsFixed(2));
                             _visibility = true;
@@ -178,7 +182,7 @@ class _HomeState extends State<Calc> {
                         onChangeEnd: (newVibrate) {
                           Vibration.vibrate(duration: 10, amplitude: 1);
                         },
-                        value: _weightSliderValue,
+                        value: _weightController,
                         label: '5',
                       ),
                     ],
@@ -188,7 +192,7 @@ class _HomeState extends State<Calc> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      '130 cm',
+                      '30 kg',
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Titillium',
@@ -196,7 +200,7 @@ class _HomeState extends State<Calc> {
                       ),
                     ),
                     Text(
-                      '250 cm',
+                      '230 kg',
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Titillium',
@@ -229,7 +233,7 @@ class _HomeState extends State<Calc> {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        '${temp2 == null ? "" : "$temp2 %"}',
+                                        '${_heightController == null ? "" : "$_heightController cm"}',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontFamily: 'Titillium',
@@ -262,7 +266,6 @@ class _HomeState extends State<Calc> {
                         max: 250,
                         onChanged: (newValue) {
                           setState(() {
-                            _heightSliderValue = newValue;
                             _heightController =
                                 double.parse(newValue.toStringAsFixed(2));
                             _visibility = true;
@@ -271,7 +274,7 @@ class _HomeState extends State<Calc> {
                         onChangeEnd: (newVibrate) {
                           Vibration.vibrate(duration: 10, amplitude: 1);
                         },
-                        value: _heightSliderValue,
+                        value: _heightController,
                         label: '5',
                       ),
                     ],
@@ -281,7 +284,7 @@ class _HomeState extends State<Calc> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      '30 kg',
+                      '130 cm',
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Titillium',
@@ -289,7 +292,7 @@ class _HomeState extends State<Calc> {
                       ),
                     ),
                     Text(
-                      '200 kg',
+                      '250 cm',
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: 'Titillium',
@@ -311,10 +314,10 @@ class BluePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // final height = size.height/2.5;
-    final height = 155.0 * 2;
+    final height = 164.0 * 2;
     final width = size.width;
     Paint paint = Paint();
-
+    
     Path mainBackground = Path();
     mainBackground.addRect(Rect.fromLTRB(0, 0, width, height));
     paint.color = Color.fromRGBO(0, 10, 238, 1);
