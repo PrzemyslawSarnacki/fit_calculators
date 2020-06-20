@@ -10,15 +10,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
 
 void main() => runApp(MaterialApp(
-      home: Calc(),
+      home: BMI(),
     ));
 
-class Calc extends StatefulWidget {
+class BMI extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _BmiState createState() => _BmiState();
 }
 
-class _HomeState extends State<Calc> {
+class _BmiState extends State<BMI> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   double _result = 0.0;
@@ -57,7 +57,7 @@ class _HomeState extends State<Calc> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: CustomDrawer(
-        child: Calc(),
+        child: BMI(),
       ),
       resizeToAvoidBottomPadding: false,
       body: CustomPaint(
@@ -80,7 +80,7 @@ class _HomeState extends State<Calc> {
                     },
                   ),
                 ),
-                Text(
+                Text( 
                   'Calculated BMI Value',
                   style: TextStyle(
                     color: Colors.white,
@@ -123,7 +123,7 @@ class _HomeState extends State<Calc> {
                       ),
                     ),
                   ),
-                ),
+                ),  
                 _buildCustomSlider(
                   "Weight",
                   _weightController,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'bfcalc.dart';
 import 'bmicalc.dart';
-import 'calc.dart';
+import 'bodyfat.dart';
+import 'bmi.dart';
 
 void main() {
   runApp(
@@ -19,7 +20,8 @@ void main() {
           '/bmi': (context) => Bmi(),
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/home': (context) => Home(),
-          '/calc': (context) => Calc(),
+          '/calc': (context) => BMI(),
+          '/bodyfat': (context) => Bodyfat(),
         }),
   );
 }

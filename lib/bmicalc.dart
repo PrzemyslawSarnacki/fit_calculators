@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'bfcalc.dart';
-import 'calc.dart';
+import 'bmi.dart';
 import 'ipfpointscalc.dart';
 
 class Bmi extends StatefulWidget {
@@ -102,7 +102,7 @@ class BmiState extends State<Bmi>{
               title: Text("IPF Calc"),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Calc()
+                  builder: (context) => BMI()
                 ));
               },
             ),
