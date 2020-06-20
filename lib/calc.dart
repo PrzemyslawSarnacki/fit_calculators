@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'bmicalc.dart';
 import 'bfcalc.dart';
+import 'custom_drawer.dart';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
@@ -12,6 +14,7 @@ void main() => runApp(MaterialApp(
     ));
 
 class Calc extends StatefulWidget {
+  
   @override
   _HomeState createState() => _HomeState();
 }
@@ -50,67 +53,11 @@ class _HomeState extends State<Calc> {
       }
     });
   }
-
+  
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.white,
-                  ),
-                  Text(
-                    "Navigate",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 10, 238, 1),
-                shape: BoxShape.rectangle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.4),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 2), // changes position of shadow
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text("BFCalc"),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
-              },
-            ),
-            ListTile(
-              title: Text("BMICalc"),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Bmi()));
-              },
-            ),
-            ListTile(
-              title: Text("IPF Calc"),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Calc()));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: CustomDrawer(child: Calc(),),
       resizeToAvoidBottomPadding: false,
       body: CustomPaint(
         painter: BluePainter(),
@@ -128,7 +75,7 @@ class _HomeState extends State<Calc> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      _scaffoldKey.currentState.openDrawer();
+                      Scaffold.of(context).openDrawer();
                     },
                   ),
                 ),
