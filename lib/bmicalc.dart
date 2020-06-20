@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'bfcalc.dart';
 import 'bmi.dart';
-import 'ipfpointscalc.dart';
 
 class Bmi extends StatefulWidget {
   @override

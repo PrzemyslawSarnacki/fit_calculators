@@ -4,6 +4,7 @@ import 'bfcalc.dart';
 import 'bmicalc.dart';
 import 'bodyfat.dart';
 import 'bmi.dart';
+import 'ipf.dart';
 
 void main() {
   runApp(
@@ -24,6 +25,7 @@ void main() {
           '/calc': (context) => BMI(),
           '/bodyfat': (context) => Bodyfat(),
           '/wilks': (context) => Wilks(),
+          '/ipf': (context) => IPF(),
         }),
   );
 }
