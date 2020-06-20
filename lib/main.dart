@@ -1,3 +1,4 @@
+import 'package:fit_calculators/wilks.dart';
 import 'package:flutter/material.dart';
 import 'bfcalc.dart';
 import 'bmicalc.dart';
@@ -22,6 +23,7 @@ void main() {
           '/home': (context) => Home(),
           '/calc': (context) => BMI(),
           '/bodyfat': (context) => Bodyfat(),
+          '/wilks': (context) => Wilks(),
         }),
   );
 }
