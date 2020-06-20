@@ -1,10 +1,10 @@
 import 'dart:js';
+import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'bmicalc.dart';
 import 'bfcalc.dart';
 import 'custom_drawer.dart';
-
 
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
@@ -14,7 +14,6 @@ void main() => runApp(MaterialApp(
     ));
 
 class Calc extends StatefulWidget {
-  
   @override
   _HomeState createState() => _HomeState();
 }
@@ -53,11 +52,13 @@ class _HomeState extends State<Calc> {
       }
     });
   }
-  
+
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: CustomDrawer(child: Calc(),),
+      drawer: CustomDrawer(
+        child: Calc(),
+      ),
       resizeToAvoidBottomPadding: false,
       body: CustomPaint(
         painter: BluePainter(),
@@ -123,178 +124,129 @@ class _HomeState extends State<Calc> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Weight',
-                            style: TextStyle(
-                                fontSize: 16, fontFamily: 'Titillium'),
-                          ),
-                          Visibility(
-                            visible: _visibility,
-                            child: Container(
-                              transform: Matrix4.translationValues(0, 10, 0),
-                              child: Card(
-                                color: Colors.grey[100],
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        '${_weightController == null ? "" : "$_weightController kg"}',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Titillium',
-                                          color:
-                                              Color.fromRGBO(65, 200, 235, 1),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.right,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Slider(
-                        inactiveColor: Color.fromRGBO(231, 237, 245, 1),
-                        activeColor: Color.fromRGBO(49, 152, 213, 1),
-                        min: 30,
-                        max: 230,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _weightController =
-                                double.parse(newValue.toStringAsFixed(2));
-                            _visibility = true;
-                          });
-                        },
-                        onChangeEnd: (newVibrate) {
-                          Vibration.vibrate(duration: 10, amplitude: 1);
-                        },
-                        value: _weightController,
-                        label: '5',
-                      ),
-                    ],
+                _buildCustomSlider(
+                  "Weight",
+                  _weightController,
+                  "kg",
+                  30,
+                  230,
+                  Slider(
+                    inactiveColor: Color.fromRGBO(231, 237, 245, 1),
+                    activeColor: Color.fromRGBO(49, 152, 213, 1),
+                    min: 30,
+                    max: 230,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _weightController =
+                            double.parse(newValue.toStringAsFixed(2));
+                        _visibility = true;
+                      });
+                    },
+                    onChangeEnd: (newVibrate) {
+                      Vibration.vibrate(duration: 10, amplitude: 1);
+                    },
+                    value: _weightController,
+                    label: '5',
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      '30 kg',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Titillium',
-                        color: Color.fromRGBO(77, 91, 127, 1),
-                      ),
-                    ),
-                    Text(
-                      '230 kg',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Titillium',
-                        color: Color.fromRGBO(77, 91, 127, 1),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Height',
-                            style: TextStyle(
-                                fontSize: 16, fontFamily: 'Titillium'),
-                          ),
-                          Visibility(
-                            visible: _visibility,
-                            child: Container(
-                              transform: Matrix4.translationValues(0, 10, 0),
-                              child: Card(
-                                color: Colors.grey[100],
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        '${_heightController == null ? "" : "$_heightController cm"}',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Titillium',
-                                          color:
-                                              Color.fromRGBO(65, 200, 235, 1),
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        textAlign: TextAlign.right,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Slider(
-                        inactiveColor: Color.fromRGBO(231, 237, 245, 1),
-                        activeColor: Color.fromRGBO(49, 152, 213, 1),
-                        min: 130,
-                        max: 250,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _heightController =
-                                double.parse(newValue.toStringAsFixed(2));
-                            _visibility = true;
-                          });
-                        },
-                        onChangeEnd: (newVibrate) {
-                          Vibration.vibrate(duration: 10, amplitude: 1);
-                        },
-                        value: _heightController,
-                        label: '5',
-                      ),
-                    ],
+                _buildCustomSlider(
+                  "Height",
+                  _heightController,
+                  "cm",
+                  130,
+                  250,
+                  Slider(
+                    inactiveColor: Color.fromRGBO(231, 237, 245, 1),
+                    activeColor: Color.fromRGBO(49, 152, 213, 1),
+                    min: 130,
+                    max: 250,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _heightController =
+                            double.parse(newValue.toStringAsFixed(2));
+                        _visibility = true;
+                      });
+                    },
+                    onChangeEnd: (newVibrate) {
+                      Vibration.vibrate(duration: 10, amplitude: 1);
+                    },
+                    value: _heightController,
+                    label: '5',
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      '130 cm',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Titillium',
-                        color: Color.fromRGBO(77, 91, 127, 1),
-                      ),
-                    ),
-                    Text(
-                      '250 cm',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'Titillium',
-                        color: Color.fromRGBO(77, 91, 127, 1),
-                      ),
-                    ),
-                  ],
-                ),
+                )
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCustomSlider(
+      String sliderName, double controller, String unit, double min, double max, Widget slider) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                sliderName,
+                style: TextStyle(fontSize: 16, fontFamily: 'Titillium'),
+              ),
+              Visibility(
+                visible: _visibility,
+                child: Container(
+                  transform: Matrix4.translationValues(0, 10, 0),
+                  child: Card(
+                    color: Colors.grey[100],
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            '${controller == null ? "" : "$controller $unit"}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Titillium',
+                              color: Color.fromRGBO(65, 200, 235, 1),
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          slider,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                '$min $unit',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Titillium',
+                  color: Color.fromRGBO(77, 91, 127, 1),
+                ),
+              ),
+              Text(
+                '$max $unit',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Titillium',
+                  color: Color.fromRGBO(77, 91, 127, 1),
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
