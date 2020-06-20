@@ -271,7 +271,7 @@ class BluePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // final weight = size.weight/2.5;
-    final weight = 164.0 * 2;
+    final weight = 155.0 * 2;
     final width = size.width;
     Paint paint = Paint();
 
