@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'bfcalc.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Widget child;
@@ -136,25 +135,32 @@ class MyDrawer extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               ListTile(
-                leading: Icon(Icons.new_releases),
+                leading: Icon(Icons.help),
                 title: Text('BMI'),
-              ),
-              ListTile(
-                leading: Icon(Icons.star),
-                title: Text('Bodyfat'),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => Home()
-                    ));
+                  Navigator.pushNamed(context, '/bmi');
                 },
               ),
               ListTile(
-                leading: Icon(Icons.map),
-                title: Text('Wilks'),
+                leading: Icon(Icons.merge_type),
+                title: Text('Bodyfat'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/bodyfat');
+                },
               ),
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
+                leading: Icon(Icons.pie_chart),
+                title: Text('Wilks'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/wilks');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.check_box),
+                title: Text('IPF Points'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/ipf');
+                },
               ),
             ],
           ),
