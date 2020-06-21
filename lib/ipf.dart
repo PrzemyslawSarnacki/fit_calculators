@@ -82,7 +82,7 @@ class _IPFState extends State<IPF> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Scaffold.of(context).openDrawer();
+                      CustomDrawer.of(context).open();
                     },
                   ),
                 ),

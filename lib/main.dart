@@ -1,29 +1,31 @@
 import 'package:fit_calculators/wilks.dart';
 import 'package:flutter/material.dart';
+import 'custom_drawer.dart';
 import 'bodyfat.dart';
 import 'bmi.dart';
 import 'wilks.dart';
 import 'ipf.dart';
 
-void main() {
-  runApp(
-    new MaterialApp(
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
         title: "BFCalc",
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
-        home: new BMI(),
+        home: CustomDrawer(child: BMI()),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          // When navigating to the "/" route, build the FirstScreen widget.
-    
           // '/bmi': (context) => Bmi(),
           // '/home': (context) => Home(),
-          '/bmi': (context) => BMI(),
-          '/bodyfat': (context) => Bodyfat(),
-          '/wilks': (context) => Wilks(),
-          '/ipf': (context) => IPF(),
-        }),
-  );
+          '/bmi': (context) => CustomDrawer(child: BMI()),
+          '/bodyfat': (context) => CustomDrawer(child: Bodyfat()),
+          '/wilks': (context) => CustomDrawer(child: Wilks()),
+          '/ipf': (context) => CustomDrawer(child: IPF()),
+        });
+  }
 }

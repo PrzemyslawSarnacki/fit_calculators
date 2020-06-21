@@ -9,17 +9,12 @@ import 'custom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
 
-void main() => runApp(MaterialApp(
-      home: BMI(),
-    ));
-
 class BMI extends StatefulWidget {
   @override
   _BmiState createState() => _BmiState();
 }
 
 class _BmiState extends State<BMI> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   double _result = 0.0;
   String _finalResultPrint;
@@ -55,7 +50,6 @@ class _BmiState extends State<BMI> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       drawer: CustomDrawer(
         child: BMI(),
       ),
@@ -76,7 +70,7 @@ class _BmiState extends State<BMI> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Scaffold.of(context).openDrawer();
+                      CustomDrawer.of(context).open();
                     },
                   ),
                 ),

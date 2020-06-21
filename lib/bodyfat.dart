@@ -2,24 +2,19 @@ import 'dart:js';
 import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'bmicalc.dart';
-import 'bfcalc.dart';
 import 'custom_drawer.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
 
-void main() => runApp(MaterialApp(
-      home: Bodyfat(),
-    ));
-
 class Bodyfat extends StatefulWidget {
+  Bodyfat({Key key}) : super(key: key);
+
   @override
   _BodyfatState createState() => _BodyfatState();
 }
 
 class _BodyfatState extends State<Bodyfat> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   double _result = 0.0;
   String _finalResultPrint;
@@ -36,8 +31,7 @@ class _BodyfatState extends State<Bodyfat> {
       double waist = _waistController;
       double neck = _neckController;
 
-      if ((gender == "male") &&
-          ((height > 0)  && (waist > 0) && (neck > 0))) {
+      if ((gender == "male") && ((height > 0) && (waist > 0) && (neck > 0))) {
         _result = ((495) /
                 (1.0324 -
                     (0.19077 * (log(waist - neck) / 2.303)) +
@@ -69,7 +63,7 @@ class _BodyfatState extends State<Bodyfat> {
           (double.parse(_result.toStringAsFixed(1))) < 18.0) {
         _finalResultPrint = "Jeszcze nie ulany";
       } else if ((double.parse(_result.toStringAsFixed(1))) >= 18.0) {
-        _finalResultPrint = "Po prostu schudnij kurwa ulańcu jebany";
+        _finalResultPrint = "Po prostu schudnij ulańcu";
       } else if ((double.parse(_result.toStringAsFixed(1))) < 5.0) {
         _finalResultPrint =
             "Umówmy się no nie masz tyle - coś ci się chyba skasztaniło byczq";
@@ -79,10 +73,7 @@ class _BodyfatState extends State<Bodyfat> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: CustomDrawer(
-        child: Bodyfat(),
-      ),
+      // drawer: CustomDrawer.of(context),
       resizeToAvoidBottomPadding: false,
       body: CustomPaint(
         painter: BluePainter(),
@@ -100,7 +91,7 @@ class _BodyfatState extends State<Bodyfat> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Scaffold.of(context).openDrawer();
+                      CustomDrawer.of(context).open();
                     },
                   ),
                 ),

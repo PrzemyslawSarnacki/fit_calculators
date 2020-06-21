@@ -9,10 +9,6 @@ import 'custom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vibration/vibration.dart';
 
-void main() => runApp(MaterialApp(
-      home: Wilks(),
-    ));
-
 class Wilks extends StatefulWidget {
   @override
   _WilksState createState() => _WilksState();
@@ -68,7 +64,7 @@ class _WilksState extends State<Wilks> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Scaffold.of(context).openDrawer();
+                      CustomDrawer.of(context).open();
                     },
                   ),
                 ),
