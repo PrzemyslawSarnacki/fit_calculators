@@ -1,16 +1,10 @@
-# fit_calculators
+# Fit Calculators
 
 Simple flutter app that allows you to get info about your achievments. Implementation of part of DigiFit that was written in Java in Dart language
 
-## Getting Started
+It includes some usefull tools for me such as Body Fat percentage calculator, Wilks and IPF Points calculators. 
 
-This project is a starting point for a Flutter application.
+## Preview
 
-A few resources to get you started if this is your first Flutter project:
+![](./calculator.gif)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
