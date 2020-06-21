@@ -6,5 +6,8 @@ It includes some usefull tools for me such as Body Fat percentage calculator, Wi
 
 ## Preview
 
+You can use it at : 
+https://przemyslawsarnacki.github.io/fit_calculators/
+
 ![](./calculator.gif)
 
