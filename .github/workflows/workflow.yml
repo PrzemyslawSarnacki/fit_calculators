@@ -1,12 +1,13 @@
 name: Flutter Web
+
 on:
-    push:
-      branches:
-        - masterjobs:
+  push:
+    branches:
+      - master
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
                     
     steps:
     - uses: actions/checkout@v1
